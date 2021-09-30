@@ -1,0 +1,35 @@
+#+title: Notes
+#+options: html-postamble:nil
+
+* How to export this file to html
+
+In emacs, open this file and type =C-c C-e h h=, it will create a
+=notes.html= file.
+
+* Amazon Web Services (AWS)
+
+** AWS CLI v1
+
+*** Upload a file to an S3 bucket with public access
+
+#+begin_src shell
+  aws s3 cp --acl public-read FILENAME s3://BUCKET_NAME
+#+end_src
+
+* Fish shell
+
+- save a function with ~funcsave the_function~
+
+** Remove the greeting message
+
+#+begin_src fish
+set -U fish_greeting ""
+#+end_src
+
+Relatedly, you can define a function called ~fish_greeting~ (same name
+as the variable if you want to run some custom commands (like
+~fortune~, or ~task~) when starting an _interactive_ shell.
+
+* FreeBSD
+
+- on FreeBSD, =nslookup= is replaced by =host=
