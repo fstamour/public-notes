@@ -33,3 +33,36 @@ as the variable if you want to run some custom commands (like
 * FreeBSD
 
 - on FreeBSD, =nslookup= is replaced by =host=
+
+* When working on CI                                  :cloud:troubleshooting:
+
+- Always put the commands in a script
+  - Easier to run locally
+  - Easier to edit (you can run a linter on the script)
+  - Way more control on error handling and control flow in general
+  - More control on the logging too
+  - Helps a lot with escaping
+- Are the submodules are initilized correctly?
+  - Are they up-to-date?
+- Are all the paths valid and correct?
+- Is there anything cached between the builds?
+- =/bin/sh: eval: line N: <FILE>: not found= but <FILE> exists
+  - check if the shebang is valid
+    - use ~#!/usr/bin/env ...~ (e.g. ~#!/usr/bin/env bash~), it's the
+      most portable way, and it give a nicer error message
+    - Is the interpreter installed? (e.g. =bash= is not installed by
+      default on Alpine linux, NixOs, FreeBSD, etc.)
+  - Check if there are CRLF (Windows end-of-lines)
+  - Is the file marked as executable?
+- When unix's =find= is available,
+
+** Useful command to help debug
+
+- To list all files recursivly: ~find /some/path -name 'file'
+  2>/dev/null~
+- To check end-of-lines: - ~dos2unix -i file1 file2 ...~
+- To check executable flag:
+  - ~stat file~
+  - ~ls -l~
+- To check executable flag and end-of-lines (watch out, it's _very_
+  verbose): ~git ls-files --debug~
