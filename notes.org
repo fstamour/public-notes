@@ -90,3 +90,8 @@ as the variable if you want to run some custom commands (like
   - ~ls -l~
 - To check executable flag and end-of-lines (watch out, it's _very_
   verbose): ~git ls-files --debug~
+
+* bash on windows (git, msys, mingw)
+
+- ~cygpath -w path~
+- ~cygpath -u path~
