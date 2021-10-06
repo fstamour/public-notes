@@ -24,18 +24,18 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
-      
+
       # Install emacs
-      - uses: purcell/setup-emacs@master
+      - name: Install Emacs
+        uses: purcell/setup-emacs@master
         with:
-          version: 24.5
+          version: 27.2
 
-      # Runs a single command using the runners shell
-      - name: Run a one-line script
-        run: echo Hello, world!
+      - name: Export the org files to html files
+        run: scripts/export.sh
 
-      # Runs a set of commands using the runners shell
-      - name: Run a multi-line script
-        run: |
-          scripts/export.sh
-
+      - name: Upload artifacts to GitHub Action
+        uses: actions/upload-artifact@v2
+        with:
+          name: export-results
+          path: *.html
