@@ -1,11 +1,6 @@
 #+title: Notes
 #+options: html-postamble:nil
 
-* How to export this file to html
-
-In emacs, open this file and type =C-c C-e h h=, it will create a
-=notes.html= file.
-
 * Amazon Web Services (AWS)
 
 ** Configuration
@@ -40,6 +35,14 @@ In emacs, open this file and type =C-c C-e h h=, it will create a
   aws s3 cp --acl public-read FILENAME s3://BUCKET_NAME
 #+end_src
 
+Effects of trailing slash et al. :
+- Uploading ~index.html~ to ~s3://BUCKET_NAME~ will create a file
+  ~index.html~ at the root of the bucket.
+- Uploading ~index.html~ to ~s3://BUCKET_NAME/path~ will create a file
+  named ~path~ at the root of the bucket.
+- Uploading ~index.html to ~s3://BUCKET_NAME/path/~ will create a file
+  named ~index.html~ in the folder ~path~.
+
 * Fish shell
 
 - save a function with ~funcsave the_function~
@@ -58,6 +61,16 @@ as the variable if you want to run some custom commands (like
 
 - on FreeBSD, =nslookup= is replaced by =host=
 
+** Packages
+
+- =pkg search ...=
+- =pkg install ...=
+
+When installing a package, there are often very useful message shown,
+often about some optional manual step that you might wanna do. To see
+these message use the command =pkg info --pkg-message package=.
+
+
 * When working on CI                                  :cloud:troubleshooting:
 
 - Always put the commands in a script
@@ -66,7 +79,7 @@ as the variable if you want to run some custom commands (like
   - Way more control on error handling and control flow in general
   - More control on the logging too
   - Helps a lot with escaping
-- Are the submodules are initilized correctly?
+- Are the submodules are initialized correctly?
   - Are they up-to-date?
 - Are all the paths valid and correct?
 - Is there anything cached between the builds?
@@ -75,14 +88,14 @@ as the variable if you want to run some custom commands (like
     - use ~#!/usr/bin/env ...~ (e.g. ~#!/usr/bin/env bash~), it's the
       most portable way, and it give a nicer error message
     - Is the interpreter installed? (e.g. =bash= is not installed by
-      default on Alpine linux, NixOs, FreeBSD, etc.)
+      default on Alpine Linux, NixOS, FreeBSD, etc.)
   - Check if there are CRLF (Windows end-of-lines)
   - Is the file marked as executable?
 - When unix's =find= is available,
 
 ** Useful command to help debug
 
-- To list all files recursivly: ~find /some/path -name 'file'
+- To list all files recursively: ~find /some/path -name 'file'
   2>/dev/null~
 - To check end-of-lines: - ~dos2unix -i file1 file2 ...~
 - To check executable flag:
@@ -95,3 +108,66 @@ as the variable if you want to run some custom commands (like
 
 - ~cygpath -w path~
 - ~cygpath -u path~
+
+* Common lisp
+
+** Setup
+
+1. https://www.quicklisp.org/beta/
+2. =rlwrap sbcl --load quicklisp.lisp=
+3. =(quicklisp-quickstart:install)=
+4. =(ql:add-to-init-file)=
+5. =(ql:quickload '(swank quicklisp-slime-helper clhs))=
+6. =(clhs:install-clhs-use-local)=
+7. =cd ~/quicklisp/local-projects/ &&
+   git@github.com:fstamour/breeze.git=
+
+* Git
+
+** Go to the root of the repository
+
+#+begin_src shell
+cd "$(git rev-parse --show-toplevel)"
+#+end_src
+
+* Langages, orthrographe et grammaire
+
+- A license (American English) or licence (British English and French)
+- specially v.s. especially
+- un "x-acto": utility knife, couteau à lame, couteau tout usage
+
+** Command line dictionaries
+
+*** Grammalecte
+
+pip install pygrammalecte # for french
+I don't know how to use it in WSL
+
+*** dict and dictd
+
+sudo apt-get install -y dict
+
+dict is an "online" dictionary, but it can be used with offline dictionaries
+from the manual: dict is a client for the Dictionary Server Protocol (DICT)
+
+alias thrus='dict -d moby-thesaurus'
+
+*** ispell and aspell and hunspell
+
+tl;dr: ispell < aspell < hunspell
+
+In WSL, =sudo apt-get install -y dict ispell aspell=
+
+In FreeBSD, =pkg install {fr-,en-}hunspell=
+
+*** wordlist
+
+- ls /usr/share/dict
+- look at "wordlist" packages
+
+[[https://pypi.org/project/cli-thesaurus/][cli-thesaurus]] looks nice, it uses thesaurus.com and dictionary.com
+
+* How to export this file to html
+
+In Emacs, open this file and type =C-c C-e h h=, it will create a
+=notes.html= file.
