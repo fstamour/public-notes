@@ -57,7 +57,7 @@ Relatedly, you can define a function called ~fish_greeting~ (same name
 as the variable if you want to run some custom commands (like
 ~fortune~, or ~task~) when starting an _interactive_ shell.
 
-* FreeBSD
+* FreeBSD                                                           :freebsd:
 
 - on FreeBSD, =nslookup= is replaced by =host=
 
@@ -109,7 +109,7 @@ these message use the command =pkg info --pkg-message package=.
 - ~cygpath -w path~
 - ~cygpath -u path~
 
-* Common lisp
+* Common lisp                                                   :common_lisp:
 
 ** Setup
 
@@ -121,6 +121,25 @@ these message use the command =pkg info --pkg-message package=.
 6. =(clhs:install-clhs-use-local)=
 7. =cd ~/quicklisp/local-projects/ &&
    git@github.com:fstamour/breeze.git=
+
+*** FreeBSD specifics                                               :freebsd:
+
+From =pkg info --pkg-message sbcl=:
+
+#+begin_quote
+If you plan to use Quicklisp, you must remove this line from
+/usr/local/etc/sbclrc.
+#+end_quote
+
+The line in question is
+
+#+begin_src lisp
+  (load "/usr/local/etc/asdf-init.lisp")
+#+end_src
+
+Warning: when you comment this line in =/usr/local/etc/sbclrc=,
+stumpwm will not work anymore if you installed it from FreeBSD's
+packages.
 
 * Git
 
@@ -171,3 +190,7 @@ In FreeBSD, =pkg install {fr-,en-}hunspell=
 
 In Emacs, open this file and type =C-c C-e h h=, it will create a
 =notes.html= file.
+
+* Emacs Org-Mode
+
+[[https://orgmode.org/worg/dev/org-syntax.html][Org-mode syntax]]
