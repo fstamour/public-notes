@@ -143,6 +143,10 @@ packages.
 
 * Git
 
+** Setup a global gitignore file
+
+~git config --global core.excludesfile ~/.gitignore~
+
 ** Go to the root of the repository
 
 #+begin_src shell
